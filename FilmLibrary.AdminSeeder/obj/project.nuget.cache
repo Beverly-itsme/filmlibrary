@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "QOHn1Zi1x3A=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\huawei\\Desktop\\filmlibrary1\\filmlibrary\\FilmLibrary.AdminSeeder\\FilmLibrary.AdminSeeder.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\huawei\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\huawei\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\huawei\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.2\\microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\huawei\\.nuget\\packages\\mysqlconnector\\2.4.0\\mysqlconnector.2.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}

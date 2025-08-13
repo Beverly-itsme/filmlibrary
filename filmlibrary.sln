@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36401.2 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "filmlibrary", "filmlibrary\filmlibrary.csproj", "{B8A4FE57-4F27-4CE9-9460-0E5419F5BE3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmLibrary.AdminSeeder", "FilmLibrary.AdminSeeder\FilmLibrary.AdminSeeder.csproj", "{7ACC44B9-3AAC-4AC0-A987-CDE44C154936}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B8A4FE57-4F27-4CE9-9460-0E5419F5BE3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8A4FE57-4F27-4CE9-9460-0E5419F5BE3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8A4FE57-4F27-4CE9-9460-0E5419F5BE3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ACC44B9-3AAC-4AC0-A987-CDE44C154936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ACC44B9-3AAC-4AC0-A987-CDE44C154936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ACC44B9-3AAC-4AC0-A987-CDE44C154936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ACC44B9-3AAC-4AC0-A987-CDE44C154936}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
