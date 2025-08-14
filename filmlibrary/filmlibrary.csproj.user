@@ -7,6 +7,12 @@
     <Compile Update="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\MovieDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MovieEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>

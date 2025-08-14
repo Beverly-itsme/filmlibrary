@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FilmLibrary.AdminSeeder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a31f05e70ed38ad0fbb3ca56b0690fed6d50730")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b303f8391144ef4f58fb5a769d4803f35dee9e8e")]
 [assembly: System.Reflection.AssemblyProductAttribute("FilmLibrary.AdminSeeder")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FilmLibrary.AdminSeeder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

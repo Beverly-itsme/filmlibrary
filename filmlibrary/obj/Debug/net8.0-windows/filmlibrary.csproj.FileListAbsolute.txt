@@ -40,3 +40,5 @@ C:\Users\huawei\Desktop\filmlibrary1\filmlibrary\filmlibrary\obj\Debug\net8.0-wi
 C:\Users\huawei\Desktop\filmlibrary1\filmlibrary\filmlibrary\obj\Debug\net8.0-windows\filmlibrary.pdb
 C:\Users\huawei\Desktop\filmlibrary1\filmlibrary\filmlibrary\obj\Debug\net8.0-windows\filmlibrary.genruntimeconfig.cache
 C:\Users\huawei\Desktop\filmlibrary1\filmlibrary\filmlibrary\obj\Debug\net8.0-windows\ref\filmlibrary.dll
+C:\Users\huawei\Desktop\filmlibrary1\filmlibrary\filmlibrary\obj\Debug\net8.0-windows\FilmLibrary.Forms.MovieDetailsForm.resources
+C:\Users\huawei\Desktop\filmlibrary1\filmlibrary\filmlibrary\obj\Debug\net8.0-windows\FilmLibrary.Forms.MovieEditForm.resources

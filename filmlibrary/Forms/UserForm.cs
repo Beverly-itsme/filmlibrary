@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using FilmLibrary.Data; // For User class and possible DAOs
+using FilmLibrary.Data;
 
 namespace FilmLibrary.Forms
 {
     public partial class UserForm : Form
     {
         private readonly User _currentUser;
+        private List<Genre> _genres = new();
 
         public UserForm(User user)
         {
@@ -15,30 +18,80 @@ namespace FilmLibrary.Forms
 
             lblWelcome.Text = $"Welcome, {_currentUser.Username}!";
 
-            LoadMovies();
-            btnLogout.Click += BtnLogout_Click;
+            // wire events
+            btnSearch.Click += async (_, __) => await RefreshListAsync();
+            btnClear.Click += async (_, __) => { ResetFilters(); await RefreshListAsync(); };
+            lstMovies.DoubleClick += LstMovies_DoubleClick;
+            btnLogout.Click += (_, __) => { Close(); Application.OpenForms["LoginForm"]?.Show(); };
+
+            // init filters + list
+            Shown += async (_, __) => { await LoadGenresAsync(); SetupStatusFilter(); await RefreshListAsync(); };
         }
 
-        private void LoadMovies()
+        private void SetupStatusFilter()
         {
-            // TODO: Replace with DB call to load movies
-            // For now, dummy list
-
-            lstMovies.Items.Clear();
-
-            lstMovies.Items.Add("The Shawshank Redemption");
-            lstMovies.Items.Add("The Godfather");
-            lstMovies.Items.Add("Inception");
-            lstMovies.Items.Add("The Dark Knight");
+            cboStatus.Items.Clear();
+            cboStatus.Items.Add("All");
+            cboStatus.Items.Add("want_to_watch");
+            cboStatus.Items.Add("watching");
+            cboStatus.Items.Add("watched");
+            cboStatus.SelectedIndex = 0;
         }
 
-        private void BtnLogout_Click(object sender, EventArgs e)
+        private async Task LoadGenresAsync()
         {
-            // Close this form and show LoginForm again
-            this.Close();
-            Application.OpenForms["LoginForm"]?.Show();
+            _genres = await MovieDao.GetGenresAsync();
+            cboGenre.Items.Clear();
+            cboGenre.Items.Add("All");
+            foreach (var g in _genres) cboGenre.Items.Add(g);
+            cboGenre.SelectedIndex = 0;
+        }
+
+        private async Task RefreshListAsync()
+        {
+            int? genreId = null;
+            if (cboGenre.SelectedIndex > 0)
+                genreId = (_genres[cboGenre.SelectedIndex - 1]).Id;
+
+            string? status = null;
+            if (cboStatus.SelectedIndex > 0)
+                status = cboStatus.SelectedItem?.ToString();
+
+            var items = await MovieDao.SearchMoviesAsync(
+                _currentUser.Id,
+                string.IsNullOrWhiteSpace(txtSearchTitle.Text) ? null : txtSearchTitle.Text.Trim(),
+                genreId,
+                status
+            );
+
+            lstMovies.DataSource = null;
+            lstMovies.DisplayMember = "Title"; // shows title in list
+            lstMovies.ValueMember = "Id";
+            lstMovies.DataSource = items;
+        }
+
+        private void ResetFilters()
+        {
+            txtSearchTitle.Clear();
+            if (cboGenre.Items.Count > 0) cboGenre.SelectedIndex = 0;
+            if (cboStatus.Items.Count > 0) cboStatus.SelectedIndex = 0;
+        }
+
+        private void LstMovies_DoubleClick(object? sender, EventArgs e)
+        {
+            if (lstMovies.SelectedItem is MovieListItem row)
+            {
+                var details = new MovieDetailsForm(_currentUser, row.Id);
+                details.ShowDialog();
+            }
+        }
+
+        private void UserForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
+
 
 
