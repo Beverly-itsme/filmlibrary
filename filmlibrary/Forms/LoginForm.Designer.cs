@@ -58,6 +58,7 @@
             label1.Size = new Size(99, 20);
             label1.TabIndex = 4;
             label1.Text = "Nome/E-mail";
+            label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -79,6 +80,7 @@
             Controls.Add(btnRegister);
             Name = "LoginForm";
             Text = "Login";
+            Load += LoginForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

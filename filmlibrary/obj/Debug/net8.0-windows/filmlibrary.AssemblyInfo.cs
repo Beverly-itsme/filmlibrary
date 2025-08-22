@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("filmlibrary")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b303f8391144ef4f58fb5a769d4803f35dee9e8e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4730c2698b76d0c3aba85dbba569d42163e5f0e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("filmlibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("filmlibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

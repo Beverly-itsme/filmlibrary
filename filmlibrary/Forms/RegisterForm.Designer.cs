@@ -29,7 +29,7 @@
 
             this.SuspendLayout();
 
-            // Labels and TextBoxes positions (simple layout)
+            // Labels and TextBoxes positions
             this.lblUsername.AutoSize = true;
             this.lblUsername.Location = new System.Drawing.Point(20, 18);
             this.lblUsername.Text = "Username";

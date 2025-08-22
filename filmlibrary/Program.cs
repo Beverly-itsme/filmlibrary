@@ -1,6 +1,6 @@
 using System;
 using System.Windows.Forms;
-using FilmLibrary.Forms; // namespace where LoginForm lives
+using FilmLibrary.Forms; 
 
 namespace FilmLibrary
 {
@@ -10,7 +10,7 @@ namespace FilmLibrary
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new LoginForm()); // instead of Form1
+            Application.Run(new LoginForm()); 
         }
     }
 }

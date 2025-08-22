@@ -8,41 +8,78 @@ namespace FilmLibrary.Forms
 {
     public partial class MovieDetailsForm : Form
     {
-        private readonly User _user;
         private readonly int _movieId;
+        private readonly User _currentUser; // ✅ Mantém o objeto User completo
 
+        // ✅ ÚNICO construtor válido
         public MovieDetailsForm(User user, int movieId)
         {
             InitializeComponent();
-            _user = user;
+            _currentUser = user;
             _movieId = movieId;
+        }
 
-            btnClose.Click += (_, __) => Close();
-            btnOpenTrailer.Click += (_, __) =>
+        private async void MovieDetailsForm_Load(object sender, EventArgs e)
+        {
+            // ✅ Busca detalhes do filme com o userId correto
+            var details = await MovieDao.GetMovieDetailsAsync(_movieId, _currentUser.Id);
+            if (details != null)
             {
-                if (!string.IsNullOrWhiteSpace(txtTrailerId.Text))
-                    Process.Start(new ProcessStartInfo($"https://www.youtube.com/watch?v={txtTrailerId.Text}") { UseShellExecute = true });
-            };
+                lblTitle.Text = details.Title;
+                lblYear.Text = $"Year: {details.Year?.ToString() ?? "-"}";
+                lblGenres.Text = $"Genres: {details.GenresCsv}";
+                txtSynopsis.Text = details.Synopsis;
+                lblAvgRating.Text = $"Avg: {details.AvgRating?.ToString("0.00") ?? "-"} ★";
+                cboMyStatus.SelectedItem = details.MyStatus ?? "";
+                numMyRating.Value = details.MyRating ?? 3;
+                txtTrailerId.Text = details.TrailerId ?? "";
 
-            // TODO buttons:
-            // btnSaveRating.Click += async ...
-            // btnAddComment.Click += async ...
-            // cboMyStatus.SelectedIndexChanged += async ...
-            Shown += async (_, __) => await LoadDetailsAsync();
+                if (!string.IsNullOrEmpty(details.PosterPath))
+                    picPoster.Load(details.PosterPath);
+            }
+
+            await LoadCommentsAsync();
         }
 
-        private async Task LoadDetailsAsync()
+        private async Task LoadCommentsAsync()
         {
-            // TODO: Create a MovieDao.GetMovieDetailsAsync(...) that returns title, year, synopsis, poster_path, genres, avg rating etc.
-            // For now, just stub UI:
-            lblTitle.Text = "Loading...";
-            // await call → fill labels, picture (poster), comments list, avg rating, etc.
+            lstComments.Items.Clear();
+            var comments = await MovieDao.GetCommentsAsync(_movieId);
+            foreach (var comment in comments)
+                lstComments.Items.Add(comment.ToString());
         }
 
-        private void btnSaveRating_Click(object sender, EventArgs e)
+        private async void btnSaveRating_Click(object sender, EventArgs e)
         {
+            await MovieDao.UpsertRatingAsync(_currentUser.Id, _movieId, (int)numMyRating.Value);
+            await MovieDao.SetUserStatusAsync(_currentUser.Id, _movieId, cboMyStatus.Text);
 
+            MessageBox.Show("Your rating/status has been saved.",
+                "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private async void btnAddComment_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtNewComment.Text))
+            {
+                await MovieDao.AddCommentAsync(_currentUser.Id, _movieId, txtNewComment.Text);
+                txtNewComment.Clear();
+                await LoadCommentsAsync();
+            }
+        }
+
+        private void btnOpenTrailer_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtTrailerId.Text))
+            {
+                var url = $"https://www.youtube.com/watch?v={txtTrailerId.Text}";
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
-

@@ -1,15 +1,16 @@
-﻿using System;
+﻿using FilmLibrary.Data;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FilmLibrary.Data;
+using static FilmLibrary.Data.MovieDao;
 
 namespace FilmLibrary.Forms
 {
     public partial class UserForm : Form
     {
         private readonly User _currentUser;
-        private List<Genre> _genres = new();
+        private List<GenreItem> _genres = new();
 
         public UserForm(User user)
         {
@@ -18,14 +19,22 @@ namespace FilmLibrary.Forms
 
             lblWelcome.Text = $"Welcome, {_currentUser.Username}!";
 
-            // wire events
+            // Wire up events
             btnSearch.Click += async (_, __) => await RefreshListAsync();
             btnClear.Click += async (_, __) => { ResetFilters(); await RefreshListAsync(); };
             lstMovies.DoubleClick += LstMovies_DoubleClick;
-            btnLogout.Click += (_, __) => { Close(); Application.OpenForms["LoginForm"]?.Show(); };
+            btnLogout.Click += (_, __) =>
+            {
+                Close();
+                Application.OpenForms["LoginForm"]?.Show();
+            };
 
-            // init filters + list
-            Shown += async (_, __) => { await LoadGenresAsync(); SetupStatusFilter(); await RefreshListAsync(); };
+            Shown += async (_, __) =>
+            {
+                await LoadGenresAsync();
+                SetupStatusFilter();
+                await RefreshListAsync();
+            };
         }
 
         private void SetupStatusFilter()
@@ -43,29 +52,38 @@ namespace FilmLibrary.Forms
             _genres = await MovieDao.GetGenresAsync();
             cboGenre.Items.Clear();
             cboGenre.Items.Add("All");
-            foreach (var g in _genres) cboGenre.Items.Add(g);
+            foreach (var g in _genres)
+                cboGenre.Items.Add(g.Name); // ✅ Só adiciona nomes (display)
             cboGenre.SelectedIndex = 0;
         }
 
         private async Task RefreshListAsync()
         {
-            int? genreId = null;
-            if (cboGenre.SelectedIndex > 0)
-                genreId = (_genres[cboGenre.SelectedIndex - 1]).Id;
+            // 🔹 Search term
+            string searchTerm = string.IsNullOrWhiteSpace(txtSearchTitle.Text)
+                ? ""
+                : txtSearchTitle.Text.Trim();
 
+            // 🔹 Genre (string? porque SearchMoviesAsync espera string, não id)
+            string? genre = null;
+            if (cboGenre.SelectedIndex > 0)
+                genre = _genres[cboGenre.SelectedIndex - 1].Name;
+
+            // 🔹 Status
             string? status = null;
             if (cboStatus.SelectedIndex > 0)
                 status = cboStatus.SelectedItem?.ToString();
 
+            // ✅ Chamada correta
             var items = await MovieDao.SearchMoviesAsync(
-                _currentUser.Id,
-                string.IsNullOrWhiteSpace(txtSearchTitle.Text) ? null : txtSearchTitle.Text.Trim(),
-                genreId,
-                status
+                searchTerm,        // string
+                genre,             // string?
+                status,            // string?
+                _currentUser.Id    // int
             );
 
             lstMovies.DataSource = null;
-            lstMovies.DisplayMember = "Title"; // shows title in list
+            lstMovies.DisplayMember = "Title";
             lstMovies.ValueMember = "Id";
             lstMovies.DataSource = items;
         }
@@ -81,6 +99,7 @@ namespace FilmLibrary.Forms
         {
             if (lstMovies.SelectedItem is MovieListItem row)
             {
+                // ✅ Agora passa o User inteiro + movieId
                 var details = new MovieDetailsForm(_currentUser, row.Id);
                 details.ShowDialog();
             }
@@ -88,10 +107,13 @@ namespace FilmLibrary.Forms
 
         private void UserForm_Load(object sender, EventArgs e)
         {
-
+            // não precisa de lógica extra aqui
         }
     }
 }
+
+
+
 
 
 

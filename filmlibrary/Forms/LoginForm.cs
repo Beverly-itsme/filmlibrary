@@ -67,6 +67,21 @@ namespace FilmLibrary.Forms
             var reg = new RegisterForm();
             reg.ShowDialog();
         }
+
+        private void saveFileDialog1_FileOk_1(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

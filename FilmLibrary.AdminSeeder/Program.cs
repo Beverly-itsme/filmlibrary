@@ -6,14 +6,14 @@ namespace FilmLibrary.AdminSeeder
 {
     internal class Program
     {
-        // CHANGE THESE IF YOU WANT
+        
         private const string AdminUsername = "admin";
         private const string AdminEmail = "admin@example.com";
-        private const string AdminPlainPassword = "123456"; // you'll log in with this
+        private const string AdminPlainPassword = "123456"; 
 
         private static async Task Main()
         {
-            // Your connection info
+           
             var cs = new MySqlConnectionStringBuilder
             {
                 Server = "localhost",
@@ -24,7 +24,7 @@ namespace FilmLibrary.AdminSeeder
                 SslMode = MySqlSslMode.None
             }.ToString();
 
-            // Hash the password with BCrypt
+            
             string hash = BCrypt.Net.BCrypt.HashPassword(AdminPlainPassword);
 
             try
@@ -32,7 +32,7 @@ namespace FilmLibrary.AdminSeeder
                 await using var conn = new MySqlConnection(cs);
                 await conn.OpenAsync();
 
-                // optional: check if user exists
+                
                 await using (var checkCmd = conn.CreateCommand())
                 {
                     checkCmd.CommandText = @"SELECT COUNT(*) FROM users WHERE username=@u OR email=@e;";
@@ -61,7 +61,7 @@ namespace FilmLibrary.AdminSeeder
                     }
                 }
 
-                // insert new admin
+                //admin
                 await using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"

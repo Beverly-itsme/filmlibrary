@@ -23,18 +23,18 @@ namespace FilmLibrary.Forms
             btnLogout = new Button();
             ((ISupportInitialize)dgvMovies).BeginInit();
             SuspendLayout();
-            // 
+             
             // lblWelcome
-            // 
+            
             lblWelcome.AutoSize = true;
             lblWelcome.Location = new Point(12, 9);
             lblWelcome.Name = "lblWelcome";
             lblWelcome.Size = new Size(122, 20);
             lblWelcome.TabIndex = 5;
             lblWelcome.Text = "Welcome, Admin";
-            // 
+             
             // dgvMovies
-            // 
+             
             dgvMovies.AllowUserToAddRows = false;
             dgvMovies.AllowUserToDeleteRows = false;
             dgvMovies.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -47,41 +47,41 @@ namespace FilmLibrary.Forms
             dgvMovies.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvMovies.Size = new Size(1321, 514);
             dgvMovies.TabIndex = 4;
-            // 
+             
             // btnAdd
-            // 
+             
             btnAdd.Location = new Point(21, 564);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 40);
             btnAdd.TabIndex = 3;
             btnAdd.Text = "Add";
-            // 
+             
             // btnEdit
-            // 
+             
             btnEdit.Location = new Point(113, 564);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(75, 40);
             btnEdit.TabIndex = 2;
             btnEdit.Text = "Edit";
-            // 
+             
             // btnDelete
-            // 
+             
             btnDelete.Location = new Point(209, 564);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 40);
             btnDelete.TabIndex = 1;
             btnDelete.Text = "Delete";
-            // 
+             
             // btnLogout
-            // 
+             
             btnLogout.Location = new Point(1211, 555);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(75, 40);
             btnLogout.TabIndex = 0;
             btnLogout.Text = "Logout";
-            // 
+             
             // AdminForm
-            // 
+             
             ClientSize = new Size(1362, 648);
             Controls.Add(btnLogout);
             Controls.Add(btnDelete);
